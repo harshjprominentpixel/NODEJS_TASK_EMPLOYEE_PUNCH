@@ -1,15 +1,13 @@
 import { Sequelize } from "sequelize";
-import getConfig from "../../config/config";
+const dotenv = require("dotenv");
+dotenv.config();
 
-let sequelize: Sequelize;
-
-const initMySqlDB = async (): Promise<void> => {
-  const {
-    MYSQL_DB: { DATABASE, DB_USERNAME, PASSWORD, HOST },
-  } = getConfig();
-
-  sequelize = new Sequelize(DATABASE, DB_USERNAME, PASSWORD, {
-    host: HOST,
+const sequelize: Sequelize = new Sequelize(
+  process.env.DATABASE!,
+  process.env.DB_USERNAME!,
+  process.env.PASSWORD,
+  {
+    host: process.env.HOST,
     logging: false,
     dialect: "mysql",
     pool: {
@@ -17,17 +15,7 @@ const initMySqlDB = async (): Promise<void> => {
       min: 0,
       idle: 10000,
     },
-  });
-  
-  const testConnections = async () => {
-    try {
-      await sequelize.authenticate();
-      console.log("Connected to Database successfully!");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  testConnections();
-};
+  }
+);
 
-export { sequelize, initMySqlDB };
+module.exports = sequelize;

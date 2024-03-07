@@ -13,8 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mysql_1 = require("./common/model/mysql");
+const sequelize = require("./common/model/mysql/index");
 const app = (0, express_1.default)();
+const router = require("./routes/router");
 //config dotenv
 const dotenv = require("dotenv");
 dotenv.config();
@@ -24,9 +25,11 @@ app.listen(process.env.PORT, () => {
 });
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        (0, mysql_1.initMySqlDB)();
+        yield sequelize.authenticate();
+        console.log("Connected to Database successfully!");
     }
     catch (e) {
         console.log(e);
     }
 }))();
+app.use("/", router);

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../mysql/index");
 
-const EmployeeModel = sequelize.define(
+export const EmployeeModel = sequelize.define(
   "employee",
   {
     id: {
@@ -35,5 +35,3 @@ const EmployeeModel = sequelize.define(
     freezeTableName: true,
   }
 );
-
-module.exports = EmployeeModel;

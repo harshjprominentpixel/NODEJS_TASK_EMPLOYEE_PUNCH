@@ -2,6 +2,7 @@ import express from "express";
 const sequelize = require("./common/model/mysql/index");
 const app = express();
 const router = require("./routes/router");
+const bodyParser = require("body-parser");
 
 //config dotenv
 const dotenv = require("dotenv");
@@ -21,4 +22,16 @@ app.listen(process.env.PORT, () => {
   }
 })();
 
+//added body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//all-routes
 app.use("/", router);
+
+app.use(async (req, res, next) => {
+  //handling 404 routes
+  res.status(200).end("Wrong Place!");
+  res.end();
+  next();
+});

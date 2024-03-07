@@ -3,7 +3,7 @@ import { Employee } from "../common/types/types";
 
 export const addEmployee = async (name: string, dob: Date) => {
   try {
-    EmployeeModel.create({
+    await EmployeeModel.create({
       name,
       dob,
     });

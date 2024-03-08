@@ -9,9 +9,14 @@ export const addPunchInTimeRoute = async (req: Request, res: Response) => {
   try {
     const punchInTime: PunchInTime = {
       in_time_ist: req.body.in_time_ist,
+      out_time_ist: req.body.out_time_ist,
       emp_id: req.body.emp_id,
     };
-    await addPunchInTime(punchInTime.in_time_ist, punchInTime.emp_id);
+    await addPunchInTime(
+      punchInTime.in_time_ist,
+      punchInTime.out_time_ist,
+      punchInTime.emp_id
+    );
     res.status(200).json({ message: "Punch In Time Added Successfully" });
   } catch (error) {
     console.log("Error creating employee : ", error);

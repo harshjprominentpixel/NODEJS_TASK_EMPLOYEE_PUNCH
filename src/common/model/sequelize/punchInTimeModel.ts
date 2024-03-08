@@ -16,6 +16,10 @@ export const PunchInTimeModel = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    out_time_ist: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     emp_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -13,12 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const employeeModel_1 = require("./common/model/sequelize/employeeModel");
+const punchInTimeModel_1 = require("./common/model/sequelize/punchInTimeModel");
 const sequelize = require("./common/model/mysql/index");
 const app = (0, express_1.default)();
 const router = require("./routes/router");
+const bodyParser = require("body-parser");
 //config dotenv
 const dotenv = require("dotenv");
 dotenv.config();
+employeeModel_1.EmployeeModel.hasMany(punchInTimeModel_1.PunchInTimeModel);
+punchInTimeModel_1.PunchInTimeModel.belongsTo(employeeModel_1.EmployeeModel);
 // start express server
 app.listen(process.env.PORT, () => {
     console.log("Server started on port", `http://localhost:${process.env.PORT}`);
@@ -32,4 +37,14 @@ app.listen(process.env.PORT, () => {
         console.log(e);
     }
 }))();
+//added body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+//all-routes
 app.use("/", router);
+app.use((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    //handling 404 routes
+    res.status(200).end("Wrong Place!");
+    res.end();
+    next();
+}));

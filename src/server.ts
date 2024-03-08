@@ -1,4 +1,6 @@
 import express from "express";
+import { EmployeeModel } from "./common/model/sequelize/employeeModel";
+import { PunchInTimeModel } from "./common/model/sequelize/punchInTimeModel";
 const sequelize = require("./common/model/mysql/index");
 const app = express();
 const router = require("./routes/router");
@@ -7,6 +9,9 @@ const bodyParser = require("body-parser");
 //config dotenv
 const dotenv = require("dotenv");
 dotenv.config();
+
+EmployeeModel.hasMany(PunchInTimeModel);
+PunchInTimeModel.belongsTo(EmployeeModel);
 
 // start express server
 app.listen(process.env.PORT, () => {

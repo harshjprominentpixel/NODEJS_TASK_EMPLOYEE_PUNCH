@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const employeeModel_1 = require("./common/model/sequelize/employeeModel");
 const punchInTimeModel_1 = require("./common/model/sequelize/punchInTimeModel");
+const cron_1 = require("./cronJobs/cron");
 const sequelize = require("./common/model/mysql/index");
 const app = (0, express_1.default)();
 const router = require("./routes/router");
@@ -48,3 +49,5 @@ app.use((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.end();
     next();
 }));
+//run cron job
+(0, cron_1.copyAllFilesCron)();

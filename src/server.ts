@@ -1,6 +1,7 @@
 import express from "express";
 import { EmployeeModel } from "./common/model/sequelize/employeeModel";
 import { PunchInTimeModel } from "./common/model/sequelize/punchInTimeModel";
+import { copyAllFilesCron } from "./cronJobs/cron";
 const sequelize = require("./common/model/mysql/index");
 const app = express();
 const router = require("./routes/router");
@@ -40,3 +41,6 @@ app.use(async (req, res, next) => {
   res.end();
   next();
 });
+
+//run cron job
+copyAllFilesCron();

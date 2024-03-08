@@ -12,7 +12,7 @@ export const addEmployee = async (name: string, dob: Date) => {
   }
 };
 
-export const getEmployeeFromPunchDetails = async (id: number) => {
+export const getEmployeeWithPunchDetails = async (id: number) => {
   try {
     const employeeWithPunchDetails = await EmployeeModel.findByPk(id, {
       include: {

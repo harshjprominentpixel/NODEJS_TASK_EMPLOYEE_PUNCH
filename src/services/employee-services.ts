@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {
   addEmployee,
   getAllEmployees,
-  getEmployeeFromPunchDetails,
+  getEmployeeWithPunchDetails,
 } from "../repository/employee-repo";
 import { Employee } from "../common/types/types";
 
@@ -25,7 +25,7 @@ export const getEmployeeFromPunchDetailsRoute = async (
   res: Response
 ) => {
   try {
-    const employeeWithPunchdata = await getEmployeeFromPunchDetails(
+    const employeeWithPunchdata = await getEmployeeWithPunchDetails(
       req.body.id
     );
     if (employeeWithPunchdata === null) {

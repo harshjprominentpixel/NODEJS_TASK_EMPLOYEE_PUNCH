@@ -6,3 +6,12 @@ export interface Employee {
     updatedAt?:Date,
     status?:number
 }
+
+export interface PunchInTime {
+    id?:number,
+    in_time_ist:Date,
+    emp_id:number,
+    createdAt?:Date,
+    updatedAt?:Date,
+    status?:number
+}

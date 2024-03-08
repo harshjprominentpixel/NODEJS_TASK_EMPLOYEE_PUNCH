@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { addPunchInTime } from "../repository/punchInTime-repo";
+import { PunchInTime } from "../common/types/types";
 
 export const addPunchInTimeRoute = async (req: Request, res: Response) => {
   try {
-    const punchInTime = {
+    const punchInTime: PunchInTime = {
       in_time_ist: req.body.in_time_ist,
       emp_id: req.body.emp_id,
     };
@@ -14,3 +15,5 @@ export const addPunchInTimeRoute = async (req: Request, res: Response) => {
     res.status(500).json({ message: "An error ocurred!" });
   }
 };
+
+// export const getPunchInTimeFromIdRoute = async

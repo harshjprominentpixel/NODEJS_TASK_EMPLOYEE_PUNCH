@@ -17,12 +17,21 @@ export const getEmployeeFromPunchDetails = async (id: number) => {
     const employeeWithPunchDetails = await EmployeeModel.findByPk(id, {
       include: {
         model: PunchInTimeModel,
-        required: true,
+        // required: true,
       },
       order: [[PunchInTimeModel, "id", "DESC"]],
     });
     return employeeWithPunchDetails;
   } catch (error) {
     console.log("creating employee error : ", error);
+  }
+};
+
+export const getAllEmployees = async () => {
+  try {
+    const allEmployees = await EmployeeModel.findAll();
+    return allEmployees;
+  } catch (error) {
+    console.log("getting employees error : ", error);
   }
 };

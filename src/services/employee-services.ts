@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   addEmployee,
+  getAllEmployees,
   getEmployeeFromPunchDetails,
 } from "../repository/employee-repo";
 import { Employee } from "../common/types/types";
@@ -34,5 +35,18 @@ export const getEmployeeFromPunchDetailsRoute = async (
     }
   } catch (error) {
     console.log("Error getting employee with punch details");
+  }
+};
+
+export const getAllEmployeesRoute = async (req: Request, res: Response) => {
+  try {
+    const allEmployees: Employee[] = await getAllEmployees();
+    if (allEmployees === null || allEmployees.length === 0) {
+      res.status(200).json({ message: "No Employees Available" });
+    } else {
+      res.status(200).send(allEmployees);
+    }
+  } catch (error) {
+    console.log("getting employees error : ", error);
   }
 };

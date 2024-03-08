@@ -1,4 +1,5 @@
 import { EmployeeModel } from "../common/model/sequelize/employeeModel";
+import { PunchInTimeModel } from "../common/model/sequelize/punchInTimeModel";
 
 export const addEmployee = async (name: string, dob: Date) => {
   try {
@@ -6,6 +7,21 @@ export const addEmployee = async (name: string, dob: Date) => {
       name,
       dob,
     });
+  } catch (error) {
+    console.log("creating employee error : ", error);
+  }
+};
+
+export const getEmployeeFromPunchDetails = async (id: number) => {
+  try {
+    const employeeWithPunchDetails = await EmployeeModel.findByPk(id, {
+      include: {
+        model: PunchInTimeModel,
+        required: true,
+      },
+      order: [[PunchInTimeModel, "id", "DESC"]],
+    });
+    return employeeWithPunchDetails;
   } catch (error) {
     console.log("creating employee error : ", error);
   }

@@ -22,8 +22,8 @@ const bodyParser = require("body-parser");
 //config dotenv
 const dotenv = require("dotenv");
 dotenv.config();
-employeeModel_1.EmployeeModel.hasMany(punchInTimeModel_1.PunchInTimeModel);
-punchInTimeModel_1.PunchInTimeModel.belongsTo(employeeModel_1.EmployeeModel);
+employeeModel_1.EmployeeModel.hasMany(punchInTimeModel_1.PunchInTimeModel, { foreignKey: "emp_id" });
+punchInTimeModel_1.PunchInTimeModel.belongsTo(employeeModel_1.EmployeeModel, { foreignKey: "emp_id" });
 // start express server
 app.listen(process.env.PORT, () => {
     console.log("Server started on port", `http://localhost:${process.env.PORT}`);

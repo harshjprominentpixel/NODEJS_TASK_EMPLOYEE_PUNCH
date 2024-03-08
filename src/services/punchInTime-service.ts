@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { addPunchInTime } from "../repository/punchInTime-repo";
+import {
+  addPunchInTime,
+  getPunchInTimeFromId,
+} from "../repository/punchInTime-repo";
 import { PunchInTime } from "../common/types/types";
 
 export const addPunchInTimeRoute = async (req: Request, res: Response) => {
@@ -16,4 +19,18 @@ export const addPunchInTimeRoute = async (req: Request, res: Response) => {
   }
 };
 
-// export const getPunchInTimeFromIdRoute = async
+export const getPunchInTimeFromIdRoute = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const punchInTimeData = await getPunchInTimeFromId(req.body.id);
+    if (punchInTimeData === null) {
+      res.status(200).json({ message: "Data Not Found" });
+    } else {
+      res.status(200).json(punchInTimeData);
+    }
+  } catch (error) {
+    console.log("Error getting punch in time from id : ", error);
+  }
+};

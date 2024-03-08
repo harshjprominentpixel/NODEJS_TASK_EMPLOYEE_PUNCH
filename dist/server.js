@@ -13,13 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const sequelize = require("./common/model/mysql/index");
+const router = require("./routes/router");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = (0, express_1.default)();
+app.use(cors());
 const employeeModel_1 = require("./common/model/sequelize/employeeModel");
 const punchInTimeModel_1 = require("./common/model/sequelize/punchInTimeModel");
 const cron_1 = require("./cronJobs/cron");
-const sequelize = require("./common/model/mysql/index");
-const app = (0, express_1.default)();
-const router = require("./routes/router");
-const bodyParser = require("body-parser");
 //config dotenv
 const dotenv = require("dotenv");
 dotenv.config();

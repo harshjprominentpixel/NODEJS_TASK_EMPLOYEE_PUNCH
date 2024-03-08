@@ -1,11 +1,13 @@
 import express from "express";
+const sequelize = require("./common/model/mysql/index");
+const router = require("./routes/router");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
+app.use(cors())
 import { EmployeeModel } from "./common/model/sequelize/employeeModel";
 import { PunchInTimeModel } from "./common/model/sequelize/punchInTimeModel";
 import { copyAllFilesCron } from "./cronJobs/cron";
-const sequelize = require("./common/model/mysql/index");
-const app = express();
-const router = require("./routes/router");
-const bodyParser = require("body-parser");
 
 //config dotenv
 const dotenv = require("dotenv");

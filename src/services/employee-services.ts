@@ -11,7 +11,7 @@ export const addEmployeeRoute = async (req: Request, res: Response) => {
     const employee: Employee = {
       name: req.body.name,
       dob: req.body.dob,
-    };
+    };  
     await addEmployee(employee.name, employee.dob);
     res.status(200).json({ message: "User Created Successfully" });
   } catch (error) {

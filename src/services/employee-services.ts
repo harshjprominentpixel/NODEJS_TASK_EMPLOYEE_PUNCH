@@ -63,7 +63,8 @@ export const generatePDFRoute = async (req: Request, res: Response) => {
       res.status(200).json({ message: "No Data Found" });
     } else {
       // res.status(200).json(employeeWithPunchdata);
-      (async () => {
+      const pdfName = new Date();
+      await (async () => {
         const browser = await puppeteer.launch({
           headless: true,
         });
@@ -105,13 +106,17 @@ export const generatePDFRoute = async (req: Request, res: Response) => {
         });
         await page.pdf({
           format: "A4",
-          path: `${__dirname}/../../generatedPDFs/${new Date()}.pdf`,
+          path: `${__dirname}/../../generatedPDFs/${pdfName}.pdf`,
           printBackground:true
         });
         await browser.close();
       })();
-      res.status(200).json({
-        message: "PDF generated Successfully",
+      res.download(`${__dirname}/../../generatedPDFs/${pdfName}.pdf`,(err)=>{
+        if (err) {
+          res.status(500).send({
+            message: "Could not download the file. " + err,
+          });
+        }
       });
     }
   } catch (error) {
